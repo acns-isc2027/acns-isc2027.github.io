@@ -69,6 +69,50 @@
     link.href = "mailto:" + address;
   });
 
+  /* Live countdown to the submission deadline: 19 Feb 2027, 23:59:59 AoE
+     (Anywhere on Earth is UTC-12; the corresponding UTC time is 20 Feb 11:59:59).
+     Use an absolute UTC timestamp so local browser timezone never affects it. */
+  var submissionClock = document.getElementById("submission-countdown");
+  var countdownContainer = document.getElementById("submission-deadline-countdown");
+  if (submissionClock && countdownContainer) {
+    var closesAt = Date.parse(submissionClock.getAttribute("data-deadline"));
+    var countdownTitle = document.getElementById("submission-countdown-title");
+    var countdownValues = {};
+    ["days", "hours", "minutes", "seconds"].forEach(function (unit) {
+      countdownValues[unit] = submissionClock.querySelector('[data-countdown-unit="' + unit + '"]');
+    });
+
+    if (!isNaN(closesAt)) {
+      var intervalId;
+      function renderCountdown() {
+        var remaining = Math.max(0, Math.ceil((closesAt - Date.now()) / 1000));
+        if (remaining === 0) {
+          countdownTitle.textContent = "Submission deadline has passed";
+          submissionClock.hidden = true;
+          if (intervalId) window.clearInterval(intervalId);
+        } else {
+          var days = Math.floor(remaining / 86400);
+          var hours = Math.floor((remaining % 86400) / 3600);
+          var minutes = Math.floor((remaining % 3600) / 60);
+          var seconds = remaining % 60;
+          countdownValues.days.textContent = String(days);
+          countdownValues.hours.textContent = String(hours).padStart(2, "0");
+          countdownValues.minutes.textContent = String(minutes).padStart(2, "0");
+          countdownValues.seconds.textContent = String(seconds).padStart(2, "0");
+        }
+      }
+
+      renderCountdown();
+      countdownContainer.hidden = false;
+      if (closesAt > Date.now()) {
+        intervalId = window.setInterval(renderCountdown, 1000);
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) renderCountdown();
+        });
+      }
+    }
+  }
+
   /* Smooth scrolling for in-page links, enabled after loading so that
      links to a section (e.g. #call-for-papers) open at that section directly. */
   window.addEventListener("load", function () {
