@@ -135,14 +135,16 @@
               </div>
             </dl>
             <div class="deadline-countdown" id="submission-deadline-countdown" hidden>
-              <p class="deadline-countdown__title" id="submission-countdown-title">Submission closes in</p>
+              <p class="deadline-countdown__title" id="submission-countdown-title">Submission countdown</p>
               <div class="deadline-countdown__timer" id="submission-countdown" data-deadline="2027-02-20T11:59:59Z" role="timer" aria-live="off" aria-label="Time remaining until submission deadline">
-                <span class="deadline-countdown__unit"><span class="deadline-countdown__value" data-countdown-unit="days">--</span><span class="deadline-countdown__label">Days</span></span>
-                <span class="deadline-countdown__unit"><span class="deadline-countdown__value" data-countdown-unit="hours">--</span><span class="deadline-countdown__label">Hours</span></span>
-                <span class="deadline-countdown__unit"><span class="deadline-countdown__value" data-countdown-unit="minutes">--</span><span class="deadline-countdown__label">Mins</span></span>
-                <span class="deadline-countdown__unit"><span class="deadline-countdown__value" data-countdown-unit="seconds">--</span><span class="deadline-countdown__label">Secs</span></span>
+                <span class="deadline-countdown__part"><span data-countdown-unit="days">--</span><span class="deadline-countdown__suffix">d</span></span>
+                <span class="deadline-countdown__part"><span data-countdown-unit="hours">--</span><span class="deadline-countdown__suffix">h</span></span>
+                <span class="deadline-countdown__part"><span data-countdown-unit="minutes">--</span><span class="deadline-countdown__suffix">m</span></span>
+                <span class="deadline-countdown__part"><span data-countdown-unit="seconds">--</span><span class="deadline-countdown__suffix">s</span></span>
               </div>
-              <p class="deadline-countdown__note" id="submission-countdown-note">19 Feb 2027, 23:59:59 AoE (UTC−12)</p>
+              <p class="deadline-countdown__note">19 Feb 2027, 23:59:59 AoE (UTC−12)</p>
+              <p class="deadline-countdown__note deadline-countdown__local" id="submission-countdown-local" hidden></p>
+            </div>
             </div>
           </section>
 
