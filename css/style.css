@@ -691,6 +691,67 @@ a.email:not([href]) {
   text-align: left;
 }
 
+/* Live AoE countdown for the submission deadline */
+.deadline-countdown {
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  border: 1px solid var(--color-accent-line);
+  border-radius: var(--radius);
+  background: var(--color-accent-tint);
+}
+
+.deadline-countdown[hidden],
+.deadline-countdown__timer[hidden] {
+  display: none;
+}
+
+.deadline-countdown__title {
+  margin: 0 0 0.55rem;
+  color: var(--color-accent-strong);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.deadline-countdown__timer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.3rem;
+}
+
+.deadline-countdown__unit {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.4rem 0.1rem 0.3rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 5px;
+  background: var(--color-surface);
+}
+
+.deadline-countdown__value {
+  color: var(--color-accent-strong);
+  font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+}
+
+.deadline-countdown__label {
+  color: var(--color-ink-muted);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.deadline-countdown .deadline-countdown__note {
+  margin: 0.5rem 0 0;
+  color: var(--color-ink-muted);
+  font-size: 0.75rem;
+}
+
 /* ---------- Organization ---------- */
 
 .org-grid {
