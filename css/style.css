@@ -691,7 +691,7 @@ a.email:not([href]) {
   text-align: left;
 }
 
-/* Compact live countdown; absolute AoE deadline with local display. */
+/* Compact live countdown to the fixed AoE submission deadline. */
 .deadline-countdown {
   margin-top: 0.8rem;
   padding: 0.75rem 0.8rem;
@@ -701,8 +701,7 @@ a.email:not([href]) {
 }
 
 .deadline-countdown[hidden],
-.deadline-countdown__timer[hidden],
-.deadline-countdown__local[hidden] {
+.deadline-countdown__timer[hidden] {
   display: none;
 }
 
@@ -735,17 +734,6 @@ a.email:not([href]) {
 .deadline-countdown__suffix {
   font-size: 0.7em;
   font-weight: 500;
-}
-
-.deadline-countdown .deadline-countdown__note {
-  margin: 0.35rem 0 0;
-  color: var(--color-ink-muted);
-  font-size: 0.72rem;
-  line-height: 1.45;
-}
-
-.deadline-countdown .deadline-countdown__local {
-  color: var(--color-accent-strong);
 }
 
 /* ---------- Organization ---------- */
