@@ -69,20 +69,41 @@
     link.href = "mailto:" + address;
   });
 
-  /* Live countdown to the submission deadline: 19 Feb 2027, 23:59:59 AoE
-     (Anywhere on Earth is UTC-12; the corresponding UTC time is 20 Feb 11:59:59).
-     Use an absolute UTC timestamp so local browser timezone never affects it. */
+  /* The AoE deadline is a single instant worldwide (UTC-12 on 19 Feb).
+     The remaining time is timezone-independent; local deadline is formatted
+     using each visitor's browser timezone. */
   var submissionClock = document.getElementById("submission-countdown");
   var countdownContainer = document.getElementById("submission-deadline-countdown");
   if (submissionClock && countdownContainer) {
     var closesAt = Date.parse(submissionClock.getAttribute("data-deadline"));
     var countdownTitle = document.getElementById("submission-countdown-title");
+    var localDeadline = document.getElementById("submission-countdown-local");
     var countdownValues = {};
     ["days", "hours", "minutes", "seconds"].forEach(function (unit) {
       countdownValues[unit] = submissionClock.querySelector('[data-countdown-unit="' + unit + '"]');
     });
 
     if (!isNaN(closesAt)) {
+      /* Detect the browser's local timezone; avoid replacing the fixed AoE
+         deadline with a local midnight, which would be incorrect. */
+      if (localDeadline && typeof Intl !== "undefined" && Intl.DateTimeFormat) {
+        try {
+          var formatter = new Intl.DateTimeFormat(undefined, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            timeZoneName: "short"
+          });
+          localDeadline.textContent = "Your local deadline: " + formatter.format(new Date(closesAt));
+          localDeadline.hidden = false;
+        } catch (e) {
+          /* The fixed AoE deadline remains visible if formatting is unsupported. */
+        }
+      }
+
       var intervalId;
       function renderCountdown() {
         var remaining = Math.max(0, Math.ceil((closesAt - Date.now()) / 1000));
